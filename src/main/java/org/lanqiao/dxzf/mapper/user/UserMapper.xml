@@ -80,4 +80,7 @@
 	<select id="login" parameterType="String" resultType="User">
 		select uname,password from user where username=#{username}
 	</select>
+	<select id="count" resultType="int">
+		select count(uid) from user
+	</select>
 </mapper>

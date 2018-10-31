@@ -33,4 +33,8 @@ public interface UserService {
 	 * 用户登录
 	 */
 	public User login(User user);
+	/**
+	 * 查询记录条数
+	 */
+	public int count();
 }

@@ -37,18 +37,23 @@ public class UserServiceImpl implements UserService {
 	public User login(User user) {
 		// TODO Auto-generated method stub
 		/**
-		 * 获取数据库的密码
+		 * 获取数据库的密码,得到该登录名的所用信息
 		 */
 		User reuser = userMapper.login(user.getUsername());
-		String password = user.getPassword();
+		String password = reuser.getPassword();	//获取数据库密码
 		/**
 		 * 通过登录账号得到密码
 		 */
-		String pass = MD5Util.getData(user.getPassword());
+		String pass = MD5Util.getData(user.getPassword());	//获取用户密码加密结果
 		if(pass.equals(password)){	//密码相同，登录成功
 			return reuser;
 		}
 		return null;	//登录失败
+	}
+
+	public int count() {
+		// TODO Auto-generated method stub
+		return userMapper.count();
 	}
 
 }
