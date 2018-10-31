@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.lanqiao.dxzf.mapper.user.UserMapper">
+<!-- sql片段 -->
+<sql id="userFixed">uid,username,password,uname,login_time,exit_time,menu_time</sql>
+<!-- ResultMap部分 -->
+ 	<resultMap type="User" id="userResultMap">
+		<id property="uid" column="uid"/>
+		<result property="username" column="username"/>
+		<result property="password" column="password"/>
+		<result property="uname" column="uname"/>
+		<result property="login_time" column="lgoin_time" jdbcType="DATE"/>
+		<result property="exit_time" column="exit_time" jdbcType="DATE"/>
+		<result property="menu_time" column="menu_time" jdbcType="DATE"/>
+		<association property="lr" column="uid" select="org.lanqiao.dxzf.mapper.user.RoleMapper.selectAllRoleByUid"></association>
+		<association property="lm" column="uid" select="org.lanqiao.dxzf.mapper.user.MenuMapper.selectAllMenuByUid"></association>
+	</resultMap>
+<!-- 添加部分 -->
+	<insert id="insert">
+		insert into user(<include refid="userFixed"/>)
+		values(null,#{username},#{password},#{uname},#{login_time,jdbcType=DATE},#{exit_time,jdbcType=DATE},#{menu_time,jdbcType=DATE})
+	</insert>
+<!-- 删除部分 -->
+	<delete id="delete">
+		delete user where uid=#{uid}
+	</delete>
+<!-- 修改部分 -->
+	<update id="update">
+		update user
+		<set>
+			<if test="username!=null">
+				username=#{username}
+			</if>
+			<if test="password!=null">
+				password=#{password}
+			</if>
+			<if test="uname!=null">
+				uname=#{uname}
+			</if>
+			<if test="login_time!=null">
+				login_time=#{login_time}
+			</if>
+			<if test="exit_time!=null">
+				exit_time=#{exit_time}
+			</if>
+			<if test="menu_time!=null">
+				menu_time=#{menu_time}
+			</if>
+		</set>
+		where uid=#{uid}
+	</update>
+<!-- 查询部分 -->
+	<select id="find" parameterType="User" resultMap="userResultMap">
+		select <include refid="userFixed"/>
+		from user
+		<where>
+			<if test="uid!=null">
+				uid=#{uid}
+			</if>
+			<if test="username!=null">
+				username=#{username}
+			</if>
+			<if test="password!=null">
+				password=#{password}
+			</if>
+			<if test="uname!=null">
+				uname=#{uname}
+			</if>
+			<if test="login_time!=null">
+				login_time=#{login_time}
+			</if>
+			<if test="exit_time!=null">
+				exit_time=#{exit_time}
+			</if>
+			<if test="menu_time!=null">
+				menu_time=#{menu_time}
+			</if>
+		</where>
+	</select>
+	<select id="login" parameterType="String" resultType="User">
+		select uname,password from user where username=#{username}
+	</select>
+</mapper>

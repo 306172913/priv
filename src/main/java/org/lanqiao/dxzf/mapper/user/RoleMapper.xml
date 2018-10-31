@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.lanqiao.dxzf.mapper.user.RoleMapper">
+<!-- sql片段 -->
+	<sql id="roleFixed">rid,rname</sql>
+<!-- 添加部分 -->
+	<insert id="insert" parameterType="Role">
+		insert into role(<include refid="roleFixed"/>)
+		values(null,#{rname})
+	</insert>
+<!-- 删除部分 -->
+	<delete id="delete">
+		delete from role where rid=#{rid}
+	</delete>
+<!-- 修改部分 -->
+	<update id="update">
+		update role
+		<set>
+			<if test="rname!=null">
+				rname=#{rname},
+			</if>
+		</set>
+		where rid=#{rid}
+	</update>
+<!-- 查询部分 -->
+	<select id="find" parameterType="Role">
+		select <include refid="roleFixed"/>
+		from role
+		<where>
+			<if test="rid!=null">
+			and rid=#{rid}
+			</if>
+			<if test="rname!=null">
+			and rname like concat('%',#{rname},'%')
+			</if>
+		</where>
+	</select>
+	<!-- 根据uid查询所有role -->
+	<select id="selectAllRoleByUid" parameterType="int" resultType="Role">
+		<!-- 首先查询中间表中的rid，再查role -->
+		select <include refid="roleFixed"/> from role where rid in (select rid from user_role where uid=#{uid})
+	</select>
+</mapper>
