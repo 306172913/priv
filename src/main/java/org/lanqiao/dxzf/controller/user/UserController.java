@@ -1,24 +1,16 @@
 package org.lanqiao.dxzf.controller.user;
 
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.lanqiao.dxzf.entity.User;
 import org.lanqiao.dxzf.entity.UserTable;
 import org.lanqiao.dxzf.service.user.UserService;
-import org.lanqiao.dxzf.util.Layui;
-import org.lanqiao.dxzf.util.PageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -76,7 +68,7 @@ public class UserController {
 	/**
 	 * 用户所有信息主界面
 	 */
-	@RequestMapping("/user/user_main")
+	@RequestMapping("/user/user_main.do")
 	public String user_main(){
 		return "user/user_main";
 	}

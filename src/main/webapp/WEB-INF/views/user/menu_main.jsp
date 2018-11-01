@@ -7,7 +7,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>权限管理系统</title>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/layui-v2.4.4/layui/css/layui.css"/>
-
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -82,18 +81,13 @@
 	  <button class="layui-btn" data-type="isAll">验证是否全选</button>
 	</div>
 
-	<table class="layui-table" lay-data="{width: 1200, height:560, url:'${pageContext.request.contextPath}/user/findAllUser.do', page:true, id:'idTest'}" lay-filter="demo">
+	<table class="layui-table" lay-data="{width: 1200, height:560, url:'${pageContext.request.contextPath}/user/findAllMenu.do', page:true, id:'idTest'}" lay-filter="demo">
 	  <thead>
 	    <tr>
 	      <th lay-data="{type:'checkbox', fixed: 'left'}"></th>
-	      <th lay-data="{field:'uid', width:70, sort: true, fixed: true}">UID</th>
-	      <th lay-data="{field:'uname', width:60}">昵称</th>
-	      <th lay-data="{field:'username', width:120}">手机号</th>
-	      <th lay-data="{field:'login_time', width:120}">登入时间</th>
-	      <th lay-data="{field:'exit_time', width:120}">退出时间</th>
-		  <th lay-data="{field:'menu_time', width:120}">授权时间</th>
-	      <th lay-data="{field:'roles', width:160}">角色</th>
-	      <th lay-data="{field:'menus', width:200}">权限</th>
+	      <th lay-data="{field:'mid', width:70, sort: true, fixed: true}">MID</th>
+	      <th lay-data="{field:'mname', width:100}">权限名</th>
+	      <th lay-data="{field:'minfo', width:400}">权限信息</th>
 	      <th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}"></th>
 	    </tr>
 	  </thead>

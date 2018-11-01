@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.lanqiao.dxzf.mapper.user.RoleMenuMapper">
+<!-- sql片段 -->
+<sql id="roleMenuFixed">r_mid,rid,mid</sql>
+<!-- 查询部分 -->
+<!-- 添加部分 -->
+	<insert id="insertRoleMenu" parameterType="RoleMenu">
+		insert into role_menu(<include refid="roleMenuFixed"/>)
+		values
+		 <!--item就是List里每一项的对象名，要用","分割每一条数据，最后要";"结尾-->
+		<foreach collection="list" item="item" index="index" separator="," close=";">
+			(null,#{item.rid},#{item.mid})
+		</foreach>
+	</insert>
+<!-- 修改部分 -->
+<!-- 	<update id="update" parameterType="RoleMenu">
+		update menu
+		<set>
+			<if test="mname!=null">
+				mname=#{mname},
+			</if>
+			<if test="minfo!=null">
+				minfo=#{minfo},
+			</if>
+		</set>
+		where mid=#{mid}
+	</update> -->
+<!-- 删除部分 -->
+<!-- 	<delete id="delete" parameterType="int">
+		delete from menu where mid=#{mid}
+	</delete> -->
+</mapper>

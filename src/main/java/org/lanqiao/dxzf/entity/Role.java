@@ -6,6 +6,7 @@ import java.util.List;
 public class Role implements Serializable{
 	private Integer rid;  	//角色id
 	private String rname;	//角色名
+	private String rinfo;	//角色信息
 	private List<Menu> lm;	//权限集合
 	private String menus;	//所有权限
 	public Role() {
@@ -34,6 +35,12 @@ public class Role implements Serializable{
 		return lm;
 	}
 	public void setLm(List<Menu> lm) {
+		String menus = "";
+		for(int i=0;i<lm.size();i++) {
+			if(i==0) menus= lm.get(i).getMname();
+			else menus += "、"+lm.get(i).getMname();
+		}
+		this.menus = menus;
 		this.lm = lm;
 	}
 	public String getMenus() {
@@ -41,6 +48,12 @@ public class Role implements Serializable{
 	}
 	public void setMenus(String menus) {
 		this.menus = menus;
+	}
+	public String getRinfo() {
+		return rinfo;
+	}
+	public void setRinfo(String rinfo) {
+		this.rinfo = rinfo;
 	}
 	@Override
 	public String toString() {

@@ -2,11 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.lanqiao.dxzf.mapper.user.RoleMapper">
 <!-- sql片段 -->
-	<sql id="roleFixed">rid,rname</sql>
-<!-- 添加部分 -->
-	<insert id="insert" parameterType="Role">
+	<sql id="roleFixed">rid,rname,rinfo</sql>
+<!-- ResultMap部分 -->
+ 	<resultMap type="Role" id="roleResultMap">
+		<id property="rid" column="rid"/>
+		<result property="rname" column="rname"/>
+		<result property="rinfo" column="rinfo"/>
+		<association property="lm" column="rid" select="org.lanqiao.dxzf.mapper.user.MenuMapper.selectAllMenuByRid"></association>
+	</resultMap>
+<!-- 添加部分
+<insert id="insertUser" useGeneratedKeys="true" keyProperty="id" parameterType="com.entity.user">
+    insert into test (name) values (#{name})
+ </insert>
+ -->
+	<insert id="insert" parameterType="Role" useGeneratedKeys="true" keyProperty="rid">
 		insert into role(<include refid="roleFixed"/>)
-		values(null,#{rname})
+		values(null,#{rname},#{rinfo})
 	</insert>
 <!-- 删除部分 -->
 	<delete id="delete">
@@ -19,11 +30,14 @@
 			<if test="rname!=null">
 				rname=#{rname},
 			</if>
+			<if test="rname!=null">
+				rinfo=#{rinfo},
+			</if>
 		</set>
 		where rid=#{rid}
 	</update>
 <!-- 查询部分 -->
-	<select id="find" parameterType="Role">
+	<select id="find" parameterType="Role" resultMap="roleResultMap">
 		select <include refid="roleFixed"/>
 		from role
 		<where>
@@ -32,6 +46,9 @@
 			</if>
 			<if test="rname!=null">
 			and rname like concat('%',#{rname},'%')
+			</if>
+			<if test="rinfo!=null">
+			and rinfo=#{rinfo}
 			</if>
 		</where>
 	</select>

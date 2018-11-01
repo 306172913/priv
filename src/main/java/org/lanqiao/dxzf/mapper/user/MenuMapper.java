@@ -7,4 +7,5 @@ import org.lanqiao.dxzf.mapper.BaseMapper;
 
 public interface MenuMapper extends BaseMapper<Menu>{
 	public List<Menu> selectAllMenuByUid(Integer uid);
+	public List<Menu> selectAllMenuByRid(Integer rid);
 }

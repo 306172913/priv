@@ -7,7 +7,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>权限管理系统</title>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/layui-v2.4.4/layui/css/layui.css"/>
-
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -48,7 +47,7 @@
         <li class="layui-nav-item layui-nav-itemed">
           <a class="" href="javascript:;">权限系统</a>
           <dl class="layui-nav-child">
-            <dd><a href="${pageContext.request.contextPath}/user/user_main.do">用户</a></dd>
+            <dd><a href="${pageContext.request.contextPath}/user/user_main.do" >用户</a></dd>
             <dd><a href="${pageContext.request.contextPath}/user/role_main.do">角色</a></dd>
             <dd><a href="${pageContext.request.contextPath}/user/menu_main.do">权限</a></dd>
             <dd><a href="">超链接</a></dd>
@@ -82,18 +81,14 @@
 	  <button class="layui-btn" data-type="isAll">验证是否全选</button>
 	</div>
 
-	<table class="layui-table" lay-data="{width: 1200, height:560, url:'${pageContext.request.contextPath}/user/findAllUser.do', page:true, id:'idTest'}" lay-filter="demo">
+	<table class="layui-table" lay-data="{width: 1200, height:560, url:'${pageContext.request.contextPath}/user/findAllRole.do', page:true, id:'idTest'}" lay-filter="demo">
 	  <thead>
 	    <tr>
 	      <th lay-data="{type:'checkbox', fixed: 'left'}"></th>
-	      <th lay-data="{field:'uid', width:70, sort: true, fixed: true}">UID</th>
-	      <th lay-data="{field:'uname', width:60}">昵称</th>
-	      <th lay-data="{field:'username', width:120}">手机号</th>
-	      <th lay-data="{field:'login_time', width:120}">登入时间</th>
-	      <th lay-data="{field:'exit_time', width:120}">退出时间</th>
-		  <th lay-data="{field:'menu_time', width:120}">授权时间</th>
-	      <th lay-data="{field:'roles', width:160}">角色</th>
-	      <th lay-data="{field:'menus', width:200}">权限</th>
+	      <th lay-data="{field:'rid', width:70, sort: true, fixed: true}">RID</th>
+	      <th lay-data="{field:'rname', width:90}">角色名</th>
+	      <th lay-data="{field:'rinfo', width:400}">角色信息</th>
+	      <th lay-data="{field:'menus', width:410}">权限</th>
 	      <th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}"></th>
 	    </tr>
 	  </thead>
@@ -151,7 +146,7 @@
 		    active[type] ? active[type].call(this) : '';
 		  });
 		});
-</script>
+	</script>
   </div>
 
   <div class="layui-footer">

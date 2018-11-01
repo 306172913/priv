@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -7,7 +8,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>权限管理系统</title>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/layui-v2.4.4/layui/css/layui.css"/>
-
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -75,83 +75,44 @@
 	<ins class="adsbygoogle" style="display:inline-block;width:970px;height:90px" data-ad-client="ca-pub-6111334333458862" data-ad-slot="3820120620"></ins>
 
 	</div>
-
-	<div class="layui-btn-group demoTable">
-	  <button class="layui-btn" data-type="getCheckData">获取选中行数据</button>
-	  <button class="layui-btn" data-type="getCheckLength">获取选中数目</button>
-	  <button class="layui-btn" data-type="isAll">验证是否全选</button>
+	<div class="layui-container">
+		<div style="color: green" id="tipInfo" align="justify">${message}</div>
+			<div class="layui-tab-item layui-show">
+			<div class="layui-form layui-form-pane">
+			<!-- 表单部分 -->
+				<form method="post" action="${pageContext.request.contextPath}/user/roleAdd.do">
+				<div class="layui-form-item">
+					<label for="L_username" class="layui-form-label">角色名</label>
+					<div class="layui-input-inline">
+						<input type="text" id="L_username" name="rname" required lay-verify="required" autocomplete="off" class="layui-input">
+					</div>
+					<div class="layui-form-mid layui-word-aux">请输入角色名</div>
+				</div>
+				  <div class="layui-form-item layui-form-text">
+				    <label class="layui-form-label">请填角色描述</label>
+				    <div class="layui-input-block">
+				      <textarea placeholder="请输入内容" class="layui-textarea" name="rinfo"></textarea>
+				    </div>
+				  </div>
+				  <div class="layui-form-item" pane>
+				  	<label class="layui-form-label">给角色授权</label>
+				  	<div class="layui-input-block">
+						<c:forEach items="${listMenu}" var="c">
+							<input type="checkbox" name="menus" lay-skin="primary" title="${c.mname}" value="${c.mid}">
+						</c:forEach>
+				  	</div>
+				  </div>
+				<div class="layui-form-item">
+					<button class="layui-btn" lay-filter="*" lay-submit>添加</button>
+					<a href="">&nbsp;&nbsp;返回</a>
+				</div>
+				</form>
+			</div>
+		</div>
 	</div>
 
-	<table class="layui-table" lay-data="{width: 1200, height:560, url:'${pageContext.request.contextPath}/user/findAllUser.do', page:true, id:'idTest'}" lay-filter="demo">
-	  <thead>
-	    <tr>
-	      <th lay-data="{type:'checkbox', fixed: 'left'}"></th>
-	      <th lay-data="{field:'uid', width:70, sort: true, fixed: true}">UID</th>
-	      <th lay-data="{field:'uname', width:60}">昵称</th>
-	      <th lay-data="{field:'username', width:120}">手机号</th>
-	      <th lay-data="{field:'login_time', width:120}">登入时间</th>
-	      <th lay-data="{field:'exit_time', width:120}">退出时间</th>
-		  <th lay-data="{field:'menu_time', width:120}">授权时间</th>
-	      <th lay-data="{field:'roles', width:160}">角色</th>
-	      <th lay-data="{field:'menus', width:200}">权限</th>
-	      <th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}"></th>
-	    </tr>
-	  </thead>
-	</table>
 
-	<script type="text/html" id="barDemo">
-  		<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
-  		<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-  		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-	</script>
-	<!-- 这个js必须比下面的js先加载，不然下面的js不可用 -->
 	<script src="${pageContext.request.contextPath}/layui-v2.4.4/layui/layui.all.js"></script>
-	<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
-	<script>
-		layui.use('table', function(){
-		  var table = layui.table;
-		  //监听表格复选框选择
-		  table.on('checkbox(demo)', function(obj){
-		    console.log(obj)
-		  });
-		  //监听工具条
-		  table.on('tool(demo)', function(obj){
-		    var data = obj.data;
-		    if(obj.event === 'detail'){
-		      layer.msg('ID：'+ data.id + ' 的查看操作');
-		    } else if(obj.event === 'del'){
-		      layer.confirm('真的删除行么', function(index){
-		        obj.del();
-		        layer.close(index);
-		      });
-		    } else if(obj.event === 'edit'){
-		      layer.alert('编辑行：<br>'+ JSON.stringify(data))
-		    }
-		  });
-
-		  var $ = layui.$, active = {
-		    getCheckData: function(){ //获取选中数据
-		      var checkStatus = table.checkStatus('idTest')
-		      ,data = checkStatus.data;
-		      layer.alert(JSON.stringify(data));
-		    }
-		    ,getCheckLength: function(){ //获取选中数目
-		      var checkStatus = table.checkStatus('idTest')
-		      ,data = checkStatus.data;
-		      layer.msg('选中了：'+ data.length + ' 个');
-		    }
-		    ,isAll: function(){ //验证是否全选
-		      var checkStatus = table.checkStatus('idTest');
-		      layer.msg(checkStatus.isAll ? '全选': '未全选')
-		    }
-		  };
-
-		  $('.demoTable .layui-btn').on('click', function(){
-		    var type = $(this).data('type');
-		    active[type] ? active[type].call(this) : '';
-		  });
-		});
-</script>
   </div>
 
   <div class="layui-footer">

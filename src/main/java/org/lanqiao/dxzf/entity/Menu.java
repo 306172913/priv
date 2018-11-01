@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class Menu implements Serializable{
 	private Integer mid;	//权限id
 	private String mname;	//权限名
+	private String minfo;  	//权限信息
 	public Menu() {
 		super();
 	}
@@ -25,9 +26,15 @@ public class Menu implements Serializable{
 	public String getMname() {
 		return mname;
 	}
-
 	public void setMname(String mname) {
 		this.mname = mname;
+	}
+	public String getMinfo() {
+		return minfo;
+	}
+
+	public void setMinfo(String minfo) {
+		this.minfo = minfo;
 	}
 
 	@Override
